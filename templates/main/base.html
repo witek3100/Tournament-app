@@ -1,0 +1,47 @@
+<html>
+<head>
+    <style type="text/css">
+        .sidenav {
+            height: 100%;
+            width: 10%;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: brown;
+            overflow-y: hidden;
+            padding-top: 15px;
+        }
+        .sidenav a {
+            padding: 6px 8px 6px 16px;
+            text-decoration: none;
+            font-size: 25px;
+            color: beige;
+            display: block;
+        }
+        .sidenav a:hover{
+            color: aqua;
+        }
+        .sidenav li{
+            display: inline;
+        }
+        .main{
+            margin-top: 50px;
+            margin-left: 200px;
+        }
+    </style>
+    <title> Tournament Manager</title>
+</head>
+    <body>
+    <div class="sidenav">
+        <li><a href="/">Home</a></li>
+        <li><a href="/login">Log in</a></li>
+        <li><a href="/signup">Sign up</a></li>
+        <li><a href="https://github.com/witek3100/Tournament-manager">github</a></li>
+    </div>
+    <div id="content", name="content", class="main">
+        {% block content %}
+        {% endblock %}
+    </div>
+    </body>
+</html>
