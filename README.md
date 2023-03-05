@@ -8,3 +8,5 @@ It's a training project, only purpose is to learn Django framework, so bugs are 
 - Django
 - PostgreSQL
 - Bootstrap
+
+## Database scheme
