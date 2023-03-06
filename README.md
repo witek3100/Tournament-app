@@ -10,3 +10,4 @@ It's a training project, only purpose is to learn Django framework, so bugs are 
 - Bootstrap
 
 ## Database scheme
+![alt text](https://github.com/witek3100/Tournament-manager/blob/main/Database%20ER%20diagram.png)
