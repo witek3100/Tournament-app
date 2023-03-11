@@ -1,4 +1,13 @@
 {% extends 'main/base.html' %}
+{% load crispy_forms_filters %}
+
+{%  block title  %}Create account{% endblock %}
+{% load crispy_forms_tags %}
+
 {% block content %}
-    SIGNUP PAGE - during work
+    <form method="POST" class="form-group">
+        {% csrf_token %}
+        {{ form|crispy }}
+    <button type="submit" class="btn btn-success">Sign up</button>
+    </form>
 {% endblock %}
