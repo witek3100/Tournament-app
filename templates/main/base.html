@@ -48,8 +48,18 @@
         <li><a href="https://github.com/witek3100/Tournament-manager">github</a></li>
     </div>
     <div id="content", name="content", class="main">
-        {% block content %}
-        {% endblock %}
+        <div class="row justify-content-center">
+            <div class="col-8">
+                <h1 class="mt-2">My site</h1>
+                <hr class="mt-0 mb-4">
+                {% if user.is_authenticated %}
+                    {% block content %}
+                    {% endblock %}
+                {% else %}
+                    <p>Login <a href="/login">here</a> </p>
+                {% endif %}
+            </div>
+        </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
