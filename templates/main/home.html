@@ -5,10 +5,23 @@
         h1 {text-align: center;}
         p {text-align: center;}
         div {text-align: center;}
+        a.button {
+            -webkit-appearance: button;
+            -moz-appearance: button;
+            appearance: menulist-button;
+
+            text-decoration: none;
+            color: initial;
+        }
     </style>
     </head>
     {% if user.is_authenticated %}
         <p>You are logged as {{ user.username }} </p>
+        <p>Your tournaments </p>
+            {% for i in user.league.all %}
+                <p><a href="/{{ i.id }}">{{ i.name }}</a></p>
+            {% endfor %}
+        <a href="/createleague" class="btn btn-primary">Create new tournament</a>
     {% else %}
         <body>
             <p>Create and manage your own tournaments</p>

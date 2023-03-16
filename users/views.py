@@ -8,7 +8,7 @@ def signup(response):
         form = SignUpForm(response.POST)
         if form.is_valid():
             form.save()
-        return redirect("/")
+            return redirect("/accountcreated")
     else:
         form = SignUpForm()
     return render(response, "users/signup.html", {"form":form})

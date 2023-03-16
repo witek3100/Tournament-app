@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class League(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="league", null=True)
     league_id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=30)
 
