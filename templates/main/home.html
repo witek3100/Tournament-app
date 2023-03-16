@@ -7,9 +7,12 @@
         div {text-align: center;}
     </style>
     </head>
-    <body>
-        <h1>Tournament Manager</h1>
-        <p>Create and manage your own tournaments</p>
-        <div>Sign up now</div>
-    </body>
+    {% if user.is_authenticated %}
+        <p>You are logged as {{ user.username }} </p>
+    {% else %}
+        <body>
+            <p>Create and manage your own tournaments</p>
+            <a href="/usr/signup">Sign up now</a></p>
+        </body>
+    {% endif %}
 {% endblock %}

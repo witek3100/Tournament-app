@@ -43,21 +43,21 @@
     <body>
     <div class="sidenav">
         <li><a href="/">Home</a></li>
-        <li><a href="/login">Log in</a></li>
-        <li><a href="/usr/signup">Sign up</a></li>
+        {% if user.is_authenticated %}
+            <li><a href="/logout">Logout</a></li>
+        {% else  %}
+            <li><a href="/login">Log in</a></li>
+            <li><a href="/usr/signup">Sign up</a></li>
+        {% endif %}
         <li><a href="https://github.com/witek3100/Tournament-manager">github</a></li>
     </div>
     <div id="content", name="content", class="main">
         <div class="row justify-content-center">
             <div class="col-8">
-                <h1 class="mt-2">My site</h1>
+                <h1 class="mt-2">Tournament manager</h1>
                 <hr class="mt-0 mb-4">
-                {% if user.is_authenticated %}
-                    {% block content %}
-                    {% endblock %}
-                {% else %}
-                    <p>Login <a href="/login">here</a> </p>
-                {% endif %}
+                {% block content %}
+                {% endblock %}
             </div>
         </div>
     </div>
