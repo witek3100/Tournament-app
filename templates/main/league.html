@@ -1,0 +1,18 @@
+{% extends "main/base.html" %}
+{% block title %}{{ l.name }}{% endblock %}
+
+{% block content %}
+    <h1>{{ l.name }}</h1>
+    <form method="post" action="#">
+        {% csrf_token %}
+        <ul>
+            {% for team in l.team_set.all %}
+                <li>{{ team.name }}{{ "  " }}{{ team.points }}</li>
+            {% endfor %}
+        </ul>
+        <input type="text", name="team name">
+        <button type="submit", class="btn btn-primary", name="addTeam", value="addTeam">Add new team</button>
+        <a href="/" class="btn btn-primary">Return</a>
+        <button type="delete", class="btn btn-primary", name="deleteL", value="deleteL">Delete league</button>
+    </form>
+{% endblock %}

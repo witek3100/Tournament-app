@@ -19,7 +19,7 @@
         <p>You are logged as {{ user.username }} </p>
         <p>Your tournaments </p>
             {% for i in user.league.all %}
-                <p><a href="/{{ i.id }}">{{ i.name }}</a></p>
+                <p><a href="/{{ i.league_id }}">{{ i.name }}</a></p>
             {% endfor %}
         <a href="/createleague" class="btn btn-primary">Create new tournament</a>
     {% else %}
