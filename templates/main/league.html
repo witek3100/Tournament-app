@@ -7,7 +7,7 @@
         {% csrf_token %}
         <ul>
             {% for team in l.team_set.all %}
-                <li>{{ team.name }}{{ "  " }}{{ team.points }}</li>
+                <p><a href="{{ l.league_id }}/{{ team.team_id }}">{{ team.name }}</a></p>
             {% endfor %}
         </ul>
         <input type="text", name="team name">

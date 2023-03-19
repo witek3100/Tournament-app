@@ -1,11 +1,12 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import League
+from .models import Team
 from .forms import CreateLeagueForm
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 
-def index(response, id):
+def league(response, id):
     l = League.objects.get(league_id=id)
     if response.method == "POST":
         if response.POST.get("addTeam"):
@@ -17,6 +18,21 @@ def index(response, id):
             return redirect('/')
 
     return render(response, 'main/league.html', {"l" : l})
+
+def team(response, lid, tid):
+    t = Team.objects.get(team_id=tid)
+    if response.method == "POST":
+        if response.POST.get("addPlayer"):
+            first_name = response.POST.get("first name")
+            second_name = response.POST.get("second name")
+            position = response.POST.get("position")
+            if len(first_name) <= 30 and len(second_name) <= 30 and len(position) <= 20:
+                t.player_set.create(first_name=first_name, second_name=second_name, position=position)
+        elif response.POST.get("deleteT"):
+            Team.objects.filter(team_id=tid).delete()
+            return redirect('/{}'.format(lid))
+
+    return render(response, 'main/team.html', {"t":t})
 
 def home(response):
     return render(response, "main/home.html", {})

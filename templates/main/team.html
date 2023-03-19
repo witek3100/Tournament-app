@@ -1,0 +1,20 @@
+{% extends "main/base.html" %}
+{% block title %}{{ t.name }}{% endblock %}
+
+{% block content %}
+    <h1>{{ t.name }}</h1>
+    <form method="post" action="#">
+        {% csrf_token %}
+        <ul>
+            {% for player in t.player_set.all %}
+                <li>{{ player.first_name }}{{ "  " }}{{ player.second_name }}</li>
+            {% endfor %}
+        </ul>
+        <input type="text", name="first name">
+        <input type="text", name="second name">
+        <input type="text", name="position">
+        <button type="submit", class="btn btn-primary", name="addPlayer", value="addPlayer">Add new player</button>
+        <a href="/{{ t.league_id.league_id }}" class="btn btn-primary">Return</a>
+        <button type="delete", class="btn btn-primary", name="deleteT", value="deleteT">Delete team</button>
+    </form>
+{% endblock %}
