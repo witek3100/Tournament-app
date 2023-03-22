@@ -9,10 +9,15 @@
             {% for team in l.team_set.all %}
                 <p><a href="{{ l.league_id }}/{{ team.team_id }}">{{ team.name }}</a></p>
             {% endfor %}
+                <p>games:</p>
+            {% for match in m %}
+                <p>{{ match.home_team_id.name }} {{ " - " }} {{ match.away_team_id.name }}</p>
+            {% endfor %}
         </ul>
         <input type="text", name="team name">
         <button type="submit", class="btn btn-primary", name="addTeam", value="addTeam">Add new team</button>
         <a href="/" class="btn btn-primary">Return</a>
         <button type="delete", class="btn btn-primary", name="deleteL", value="deleteL">Delete league</button>
+        <button type="submit", class="btn btn-primary", name="generateSchedule", value="generateSchedule">Generate schedule</button>
     </form>
 {% endblock %}

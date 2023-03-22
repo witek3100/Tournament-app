@@ -19,3 +19,10 @@ class Player(models.Model):
     first_name = models.CharField(max_length=30)
     second_name = models.CharField(max_length=30)
     position = models.CharField(max_length=20)
+
+class Match(models.Model):
+    match_id = models.IntegerField(primary_key=True)
+    home_team_id = models.ForeignKey(Team, on_delete=models.CASCADE, related_name="hometeam")
+    away_team_id = models.ForeignKey(Team, on_delete=models.CASCADE, related_name="awayteam")
+    home_team_result = models.IntegerField(null=True)
+    away_team_result = models.IntegerField(null=True)
