@@ -10,8 +10,11 @@
                 <p><a href="{{ l.league_id }}/{{ team.team_id }}">{{ team.name }}</a></p>
             {% endfor %}
                 <p>games:</p>
-            {% for match in m %}
-                <p>{{ match.home_team_id.name }} {{ " - " }} {{ match.away_team_id.name }}</p>
+            {% for match_list in m %}
+                <p>Match day {{ forloop.counter }}</p>
+                {% for match in match_list %}
+                    <p>{{ match.home_team_id.name }} {{ match.home_team_result }} {{ " - " }} {{ match.away_team_result }} {{ match.away_team_id.name }}</p>
+                {% endfor %}
             {% endfor %}
         </ul>
         <input type="text", name="team name">

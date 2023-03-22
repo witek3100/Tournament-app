@@ -22,6 +22,7 @@ class Player(models.Model):
 
 class Match(models.Model):
     match_id = models.IntegerField(primary_key=True)
+    match_day = models.IntegerField()
     home_team_id = models.ForeignKey(Team, on_delete=models.CASCADE, related_name="hometeam")
     away_team_id = models.ForeignKey(Team, on_delete=models.CASCADE, related_name="awayteam")
     home_team_result = models.IntegerField(null=True)
