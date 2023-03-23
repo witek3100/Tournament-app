@@ -3,9 +3,11 @@ from django.http import HttpResponse
 from .models import League
 from .models import Team
 from .models import Match
-from .forms import CreateLeagueForm
+from .forms import CreateLeagueForm, EditMatchForm, CreateTeamForm, CreatePlayerForm
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
+
+
 
 def league(response, id):
     l = League.objects.get(league_id=id)
@@ -69,5 +71,39 @@ def create_league(request):
             return redirect('/')
     else:
         form = CreateLeagueForm()
-    return render(request, 'main/create_league.html', {'form':form})
+    return render(request, 'main/add_league.html', {'form':form})
+
+@login_required
+def create_team(request, lid):
+    if request.method == "POST":
+        form = CreateTeamForm(request.POST)
+        if form.is_valid():
+            team = form.save(commit=False)
+            team.league_id = League.objects.get(league_id=lid)
+            team.save()
+            return redirect("/{}".format(lid))
+    else:
+        form = CreateTeamForm()
+    return render(request, 'main/add_team.html', {"form":form})
+
+@login_required
+def create_player(request, lid, tid):
+    if request.method == "POST":
+        form = CreatePlayerForm(request.POST)
+        if form.is_valid():
+            player = form.save(commit=False)
+            player.team_id = Team.objects.get(team_id=tid)
+            player.save()
+            return redirect("/{}/{}".format(lid, tid))
+    else:
+        form = CreatePlayerForm()
+    return render(request, 'main/add_player.html', {"form":form})
+@login_required
+def edit_match(request, mid):
+    form = EditMatchForm(request.POST, instance=mid)
+    if request.method == "POST":
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+    return render(request, 'main/edit_match.html', {"form" : form})
 

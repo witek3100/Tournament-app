@@ -10,10 +10,7 @@
                 <li>{{ player.first_name }}{{ "  " }}{{ player.second_name }}</li>
             {% endfor %}
         </ul>
-        <input type="text", name="first name">
-        <input type="text", name="second name">
-        <input type="text", name="position">
-        <button type="submit", class="btn btn-primary", name="addPlayer", value="addPlayer">Add new player</button>
+        <a href="/{{ t.league_id.league_id }}/{{ t.team_id }}/addplayer">Add player</a>
         <a href="/{{ t.league_id.league_id }}" class="btn btn-primary">Return</a>
         <button type="delete", class="btn btn-primary", name="deleteT", value="deleteT">Delete team</button>
     </form>

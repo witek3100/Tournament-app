@@ -13,14 +13,14 @@
             {% for match_list in m %}
                 <p>Match day {{ forloop.counter }}</p>
                 {% for match in match_list %}
-                    <p>{{ match.home_team_id.name }} {{ match.home_team_result }} {{ " - " }} {{ match.away_team_result }} {{ match.away_team_id.name }}</p>
+                    <p>{{ match.home_team_id.name }} {{ match.home_team_result }} {{ " - " }} {{ match.away_team_result }} {{ match.away_team_id.name }}
+                        <a href="/editmatch/{{ match.match_id }}"><i class="bi bi-pencil"></i></a> </p>
                 {% endfor %}
             {% endfor %}
         </ul>
-        <input type="text", name="team name">
-        <button type="submit", class="btn btn-primary", name="addTeam", value="addTeam">Add new team</button>
+        <a href="/{{ l.league_id }}/createteam" class="btn btn-primary">Add new team</a>
         <a href="/" class="btn btn-primary">Return</a>
-        <button type="delete", class="btn btn-primary", name="deleteL", value="deleteL">Delete league</button>
-        <button type="submit", class="btn btn-primary", name="generateSchedule", value="generateSchedule">Generate schedule</button>
+        <button type="submit", class="btn btn-primary", name="generateSchedule", value="generateSchedule", onclick="">Generate schedule</button>
+        <button type="delete", class="btn btn-danger", name="deleteL", value="deleteL", >Delete league</button>
     </form>
 {% endblock %}
