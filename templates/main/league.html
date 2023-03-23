@@ -1,6 +1,5 @@
 {% extends "main/base.html" %}
 {% block title %}{{ l.name }}{% endblock %}
-
 {% block content %}
     <h1>{{ l.name }}</h1>
     <form method="post" action="#">
@@ -14,7 +13,7 @@
                 <p>Match day {{ forloop.counter }}</p>
                 {% for match in match_list %}
                     <p>{{ match.home_team_id.name }} {{ match.home_team_result }} {{ " - " }} {{ match.away_team_result }} {{ match.away_team_id.name }}
-                        <a href="/editmatch/{{ match.match_id }}"><i class="bi bi-pencil"></i></a> </p>
+                        <a href="{{ l.league_id }}/editmatch/{{ match.match_id }}"><i class="bi bi-pencil"></i></a> </p>
                 {% endfor %}
             {% endfor %}
         </ul>

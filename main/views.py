@@ -99,11 +99,13 @@ def create_player(request, lid, tid):
         form = CreatePlayerForm()
     return render(request, 'main/add_player.html', {"form":form})
 @login_required
-def edit_match(request, mid):
-    form = EditMatchForm(request.POST, instance=mid)
+def edit_match(request, lid, mid):
     if request.method == "POST":
+        form = EditMatchForm(request.POST, instance=Match.objects.get(match_id=mid))
         if form.is_valid():
             form.save()
-            return redirect('/')
+            return redirect('/{}'.format(lid))
+    else:
+        form = EditMatchForm()
     return render(request, 'main/edit_match.html', {"form" : form})
 

@@ -1,12 +1,17 @@
+{% extends 'main/base.html' %}
 {% load crispy_forms_filters %}
-
-{% block title %}Edit match{% endblock %}
-{% load crispy_forms_tags %}
-
+{% block title %}
+    Edit Match
+{% endblock %}
 {% block content %}
-    <form method="POST" class="form-group">
+    <div class="container">
+    <form method="POST">
+      <fieldset>
+        <legend>Edit match</legend>
         {% csrf_token %}
         {{ form|crispy }}
-    <button type="submit" class="btn btn-success">Save</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </fieldset>
     </form>
+</div>
 {% endblock %}
