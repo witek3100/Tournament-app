@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 
 
-
+@login_required
 def league(response, id):
     l = League.objects.get(league_id=id)
     teams = list(l.team_set.all())
@@ -41,9 +41,11 @@ def league(response, id):
                 list2.reverse()
                 for i in range(len(list1)):
                     Match.objects.create(home_team_id=list1[i], away_team_id=list2[i], match_day=j+2)
+            count_points(id)
 
     return render(response, 'main/league.html', {"l" : l, "m": m})
 
+@login_required
 def team(response, lid, tid):
     t = Team.objects.get(team_id=tid)
     if response.method == "POST":
@@ -104,8 +106,28 @@ def edit_match(request, lid, mid):
         form = EditMatchForm(request.POST, instance=Match.objects.get(match_id=mid))
         if form.is_valid():
             form.save()
+            count_points(lid)
             return redirect('/{}'.format(lid))
     else:
         form = EditMatchForm()
     return render(request, 'main/edit_match.html', {"form" : form})
 
+def count_points(lid):
+    for team in Team.objects.all():
+        team.points = 0
+        team.save()
+    matches = Match.objects.filter(home_team_id__in=[t.team_id for t in League.objects.get(league_id=lid).team_set.all()])
+    for match in matches:
+        if match.home_team_result == None or match.away_team_result == None:
+            continue
+        if match.home_team_result > match.away_team_result:
+            match.home_team_id.points += 3
+            match.home_team_id.save()
+        elif match.home_team_result == match.away_team_result:
+            match.home_team_id.points += 1
+            match.away_team_id.points += 1
+            match.home_team_id.save()
+            match.away_team_id.save()
+        elif match.home_team_result < match.away_team_result:
+            match.away_team_id.points += 3
+            match.home_team_id.save()

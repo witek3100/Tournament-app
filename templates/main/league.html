@@ -6,7 +6,7 @@
         {% csrf_token %}
         <ul>
             {% for team in l.team_set.all %}
-                <p><a href="{{ l.league_id }}/{{ team.team_id }}">{{ team.name }}</a></p>
+                <p><a href="{{ l.league_id }}/{{ team.team_id }}">{{ team.name }}</a><b>{{ team.points }}</b></p>
             {% endfor %}
                 <p>games:</p>
             {% for match_list in m %}
