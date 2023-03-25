@@ -12,6 +12,11 @@ class Team(models.Model):
     name = models.CharField(max_length=30)
     shorthand = models.CharField(max_length=3)
     points = models.IntegerField(null=False, default=0)
+    goals_scored = models.IntegerField(null=False, default=0)
+    goals_lost = models.IntegerField(null=False, default=0)
+    wins = models.IntegerField(null=False, default=0)
+    draws = models.IntegerField(null=False, default=0)
+    lost = models.IntegerField(null=False, default=0)
 
 class Player(models.Model):
     player_id = models.IntegerField(primary_key=True)

@@ -5,16 +5,50 @@
     <form method="post" action="#">
         {% csrf_token %}
         <ul>
-            {% for team in l.team_set.all %}
-                <p><a href="{{ l.league_id }}/{{ team.team_id }}">{{ team.name }}</a><b>{{ team.points }}</b></p>
-            {% endfor %}
-                <p>games:</p>
+            <table class="table">
+              <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Points</th>
+                    <th scope="col">Goals scored</th>
+                    <th scope="col">Goals lost</th>
+                    <th scope="col">Wins</th>
+                    <th scope="col">Draws</th>
+                    <th scope="col">Lost</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for team in l.team_set.all|dictsort:"points" %}
+                    <tr>
+                      <th scope="row">{{ forloop.counter }}</th>
+                      <td><a href="{{ l.league_id }}/{{ team.team_id }}">{{ team.name }}</a></td>
+                      <td>{{ team.points }}</td>
+                      <td>{{ team.goals_scored }}</td>
+                      <td>{{ team.goals_lost }}</td>
+                      <td>{{ team.wins }}</td>
+                      <td>{{ team.draws }}</td>
+                      <td>{{ team.lost }}</td>
+                    </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+            <p>games:</p>
             {% for match_list in m %}
                 <p>Match day {{ forloop.counter }}</p>
-                {% for match in match_list %}
-                    <p>{{ match.home_team_id.name }} {{ match.home_team_result }} {{ " - " }} {{ match.away_team_result }} {{ match.away_team_id.name }}
-                        <a href="{{ l.league_id }}/editmatch/{{ match.match_id }}"><i class="bi bi-pencil"></i></a> </p>
-                {% endfor %}
+                <table class="table">
+                    <tbody>
+                        {% for match in match_list %}
+                            <tr>
+                                <td>{{ match.home_team_id.name }}</td>
+                                <td>{{ match.home_team_result }}</td>
+                                <td>{{ match.away_team_result }}</td>
+                                <td>{{ match.away_team_id.name }}</td>
+                                <td><a href="{{ l.league_id }}/editmatch/{{ match.match_id }}"><i class="bi bi-pencil"></i></a></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             {% endfor %}
         </ul>
         <a href="/{{ l.league_id }}/createteam" class="btn btn-primary">Add new team</a>

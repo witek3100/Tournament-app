@@ -115,6 +115,11 @@ def edit_match(request, lid, mid):
 def count_points(lid):
     for team in Team.objects.all():
         team.points = 0
+        team.goals_scored = 0
+        team.goals_lost = 0
+        team.wins = 0
+        team.draws = 0
+        team.lost = 0
         team.save()
     matches = Match.objects.filter(home_team_id__in=[t.team_id for t in League.objects.get(league_id=lid).team_set.all()])
     for match in matches:
@@ -122,12 +127,32 @@ def count_points(lid):
             continue
         if match.home_team_result > match.away_team_result:
             match.home_team_id.points += 3
+            match.home_team_id.wins += 1
+            match.away_team_id.lost += 1
+            match.away_team_id.goals_lost += match.home_team_result
+            match.away_team_id.goals_scored += match.away_team_result
+            match.home_team_id.goals_lost += match.away_team_result
+            match.home_team_id.goals_scored += match.home_team_result
+            match.away_team_id.save()
             match.home_team_id.save()
         elif match.home_team_result == match.away_team_result:
             match.home_team_id.points += 1
             match.away_team_id.points += 1
-            match.home_team_id.save()
+            match.away_team_id.goals_lost += match.home_team_result
+            match.away_team_id.goals_scored += match.away_team_result
+            match.home_team_id.goals_lost += match.away_team_result
+            match.home_team_id.goals_scored += match.home_team_result
+            match.home_team_id.draws += 1
+            match.away_team_id.draws += 1
             match.away_team_id.save()
+            match.home_team_id.save()
         elif match.home_team_result < match.away_team_result:
             match.away_team_id.points += 3
+            match.away_team_id.goals_lost += match.home_team_result
+            match.away_team_id.goals_scored += match.away_team_result
+            match.home_team_id.goals_lost += match.away_team_result
+            match.home_team_id.goals_scored += match.home_team_result
+            match.home_team_id.lost += 1
+            match.away_team_id.wins += 1
+            match.away_team_id.save()
             match.home_team_id.save()
