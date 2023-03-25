@@ -23,3 +23,8 @@ class EditMatchForm(forms.ModelForm):
         model = Match
         fields = ['home_team_result', 'away_team_result']
         labels = {'home_team_result' : 'Home team result', 'away_team_result' : 'Away team result'}
+
+class EditLeagueForm(forms.ModelForm):
+    class Meta:
+        model = League
+        fields = ['name', 'promoted_teams', 'relegated_teams']

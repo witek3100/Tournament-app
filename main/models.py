@@ -5,6 +5,8 @@ class League(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="league", null=True)
     league_id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=30)
+    promoted_teams = models.IntegerField(default=1)
+    relegated_teams = models.IntegerField(default=1)
 
 class Team(models.Model):
     team_id = models.IntegerField(primary_key=True)

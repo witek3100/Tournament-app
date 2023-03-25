@@ -1,10 +1,14 @@
 {% extends "main/base.html" %}
+{% load main_tags %}
 {% block title %}
     {{ l.name }}
 {% endblock %}
 {% block content %}
     <br>
-    <h1><center>{{ l.name }}</center></h1>
+    <center>
+        <b style="font-size: 50px;">{{ l.name }}
+        </b><a href="{{ l.league_id }}/editleague" ><i class="bi bi-pencil"></i></a>
+    </center>
     <br>
     <form method="post" action="#">
         {% csrf_token %}
@@ -16,6 +20,7 @@
                     <th scope="col">#</th>
                     <th scope="col">Name</th>
                     <th scope="col">Points</th>
+                    <th scope="col">Goal difference</th>
                     <th scope="col">Goals scored</th>
                     <th scope="col">Goals lost</th>
                     <th scope="col">Wins</th>
@@ -24,15 +29,18 @@
                 </tr>
               </thead>
               <tbody>
-              {% for team in l.team_set.all|dictsort:"points" %}
-                    {% if forloop.counter < l.team_set.count %}
+              {% for team in l.team_set.all|dictsort:"points" reversed %}
+                    {% if forloop.counter <= l.promoted_teams %}
                         <tr class="table-success">
+                    {% elif forloop.counter > l.promoted_teams and forloop.counter <= l.team_set.count|div:l.relegated_teams %}
+                        <tr class="table-light">
                     {% else %}
-                        <tr class="table-primary">
+                        <tr class="table-danger">
                     {% endif %}
                       <th scope="row">{{ forloop.counter }}</th>
                       <td><a href="{{ l.league_id }}/{{ team.team_id }}">{{ team.name }}</a></td>
                       <td>{{ team.points }}</td>
+                      <td>{{ team.goals_scored|div:team.goals_lost }}</td>
                       <td>{{ team.goals_scored }}</td>
                       <td>{{ team.goals_lost }}</td>
                       <td>{{ team.wins }}</td>

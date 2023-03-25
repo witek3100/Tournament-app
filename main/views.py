@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from .models import League
 from .models import Team
 from .models import Match
-from .forms import CreateLeagueForm, EditMatchForm, CreateTeamForm, CreatePlayerForm
+from .forms import CreateLeagueForm, EditMatchForm, CreateTeamForm, CreatePlayerForm, EditLeagueForm
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 
@@ -155,3 +155,14 @@ def count_points(lid):
             match.away_team_id.wins += 1
             match.away_team_id.save()
             match.home_team_id.save()
+
+@login_required
+def edit_league(request, lid):
+    if request.method == "POST":
+        form = EditLeagueForm(request.POST, instance=League.objects.get(league_id=lid))
+        if form.is_valid():
+            form.save()
+            return redirect('/{}'.format(lid))
+    else:
+        form = EditLeagueForm()
+    return render(request, 'main/edit_league.html', {"form" : form})
