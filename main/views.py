@@ -25,7 +25,6 @@ def league(response, id):
             for match_list in m:
                 match_list.delete()
             mid = int(len(teams)/2)
-            print(mid)
             list1 = teams[:mid]
             list2 = teams[mid:]
             list2.reverse()
