@@ -112,7 +112,7 @@ def edit_match(request, lid, mid):
     return render(request, 'main/edit_match.html', {"form" : form})
 
 def count_points(lid):
-    for team in Team.objects.all():
+    for team in League.objects.get(league_id=lid).team_set.all():
         team.points = 0
         team.goals_scored = 0
         team.goals_lost = 0
