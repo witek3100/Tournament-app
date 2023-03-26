@@ -29,7 +29,7 @@
                 </tr>
               </thead>
               <tbody>
-              {% for team in l.team_set.all|dictsort:"points" reversed %}
+              {% for team in l.team_set.all|sortleague %}
                     {% if forloop.counter <= l.promoted_teams %}
                         <tr class="table-success">
                     {% elif forloop.counter > l.promoted_teams and forloop.counter <= l.team_set.count|div:l.relegated_teams %}
