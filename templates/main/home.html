@@ -16,16 +16,17 @@
     </style>
     </head>
     {% if user.is_authenticated %}
-        <p>You are logged as {{ user.username }} </p>
-        <p>Your tournaments </p>
+        <p><b>You are logged as {{ user.username }}</b></p>
+        <p>Your tournaments</p>
             {% for i in user.league.all %}
                 <p><a href="/{{ i.league_id }}">{{ i.name }}</a></p>
             {% endfor %}
         <a href="/createleague" class="btn btn-primary">Create new tournament</a>
     {% else %}
         <body>
-            <p>Create and manage your own tournaments</p>
-            <a href="/usr/signup">Sign up now</a></p>
+            {% load static %} <img src="{% static "main/media/cup.jpg" %}" width="200" height="200" alt="" />
+            <br><b>Create and manage your own tournaments</b><br><br>
+            <a href="/usr/signup" class="btn btn-primary">Sign up now</a></b>
         </body>
     {% endif %}
 {% endblock %}

@@ -3,15 +3,44 @@
 
 {% block content %}
     <h1>{{ t.name }}</h1>
+    <p><b>Players</b></p>
     <form method="post" action="#">
         {% csrf_token %}
-        <ul>
-            {% for player in t.player_set.all %}
-                <li>{{ player.first_name }}{{ "  " }}{{ player.second_name }}</li>
-            {% endfor %}
+            <ul>
+            <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">First name</th>
+                    <th scope="col">Last name</th>
+                    <th scope="col">Position</th>
+                </tr>
+              </thead>
+              <tbody>
+                  {% for player in t.player_set.all %}
+                      <th scope="row">{{ forloop.counter }}</th>
+                          <td>{{ player.first_name }}</td>
+                          <td>{{ player.second_name }}</td>
+                          <td>{{ player.position }}</td>
+                        </tr>
+                  {% endfor %}
+              </tbody>
+            </table>
+
+
+            <div class="fixed-bottom">
+            <br>
+            <center>
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+            <a href="/{{ t.league_id.league_id }}/{{ t.team_id }}/addplayer" class="btn btn-primary">Add player</a>
+                &nbsp&nbsp&nbsp&nbsp
+            <a href="/{{ t.league_id.league_id }}" class="btn btn-primary">Return</a>
+                &nbsp&nbsp&nbsp&nbsp
+            <button type="delete", class="btn btn-primary", name="deleteT", value="deleteT">Delete team</button>
+            </center>
+            <br>
+        </div>
         </ul>
-        <a href="/{{ t.league_id.league_id }}/{{ t.team_id }}/addplayer" class="btn btn-primary">Add player</a>
-        <a href="/{{ t.league_id.league_id }}" class="btn btn-primary">Return</a>
-        <button type="delete", class="btn btn-primary", name="deleteT", value="deleteT">Delete team</button>
     </form>
 {% endblock %}

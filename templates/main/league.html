@@ -3,6 +3,15 @@
 {% block title %}
     {{ l.name }}
 {% endblock %}
+
+<head>
+    <style type="text/css">
+        .buttons {
+            position: fixed;
+        }
+    </style>
+</head>
+
 {% block content %}
     <br>
     <center>
@@ -72,12 +81,25 @@
             {% endfor %}
         </ul>
         <br><br>
-        <center>
-        <a href="/{{ l.league_id }}/createteam" class="btn btn-primary">Add new team</a>
-        <a href="/" class="btn btn-primary">Return</a>
-        <button type="submit", class="btn btn-primary", name="generateSchedule", value="generateSchedule", onclick="">Generate schedule</button>
-        <button type="delete", class="btn btn-danger", name="deleteL", value="deleteL", >Delete league</button>
-        </center>
-        <br><br>
+        <style type="text/css">
+            .fixed-bottom {
+                background-color: rgba(255, 255, 255, 0.6);
+            }
+        </style>
+        <div class="fixed-bottom">
+            <br>
+            <center>
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+            <a href="/{{ l.league_id }}/createteam" class="btn btn-primary">Add new team</a>
+                &nbsp&nbsp&nbsp&nbsp
+            <a href="/" class="btn btn-primary">Return</a>
+                &nbsp&nbsp&nbsp&nbsp
+            <button type="submit", class="btn btn-primary", name="generateSchedule", value="generateSchedule", onclick="">Generate schedule</button>
+                &nbsp&nbsp&nbsp&nbsp
+            <button type="delete", class="btn btn-danger", name="deleteL", value="deleteL", >Delete league</button>
+            </center>
+            <br>
+        </div>
     </form>
 {% endblock %}
