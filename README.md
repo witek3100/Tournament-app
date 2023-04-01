@@ -8,6 +8,3 @@ It's a training project, only purpose is to learn Django framework, so bugs are 
 - Django
 - PostgreSQL
 - Bootstrap
-
-## Database scheme
-![alt text](https://github.com/witek3100/Tournament-manager/blob/main/Database%20ER%20diagram.png)
