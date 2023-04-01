@@ -5,6 +5,14 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
+    <style>
+    h1 {
+            background-color: goldenrod;
+        }
+    </style>
+    <center>
+    <h1>SIGN UP</h1>
+    </center>
     <form method="POST" class="form-group">
         {% csrf_token %}
         {{ form|crispy }}
