@@ -1,9 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import League
-from .models import Team
-from .models import Match
-from .forms import CreateLeagueForm, EditMatchForm, CreateTeamForm, CreatePlayerForm, EditLeagueForm
+from .models import League, Team, Match, Scores
+from .forms import CreateLeagueForm, EditMatchForm, CreateTeamForm, CreatePlayerForm, EditLeagueForm, EditScoreForm
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 
@@ -101,15 +99,30 @@ def create_player(request, lid, tid):
     return render(request, 'main/add_player.html', {"form":form})
 @login_required
 def edit_match(request, lid, mid):
+    l = League.objects.get(league_id=lid)
+    m = Match.objects.get(match_id=mid)
     if request.method == "POST":
-        form = EditMatchForm(request.POST, instance=Match.objects.get(match_id=mid))
-        if form.is_valid():
-            form.save()
+        form_match = EditMatchForm(request.POST, instance=Match.objects.get(match_id=mid))
+        if form_match.is_valid():
+            form_match.save()
             count_points(lid)
             return redirect('/{}'.format(lid))
     else:
-        form = EditMatchForm()
-    return render(request, 'main/edit_match.html', {"form" : form})
+        form_match = EditMatchForm()
+    return render(request, 'main/edit_match.html', {"form_match" : form_match, "l" : l, "m" : m})
+
+@login_required
+def add_score(request, mid, lid):
+    if request.method == "POST":
+        form_score = EditScoreForm(request.POST)
+        if form_score.is_valid():
+            score = form_score.save(commit=False)
+            score.match_id = Match.objects.get(match_id=mid)
+            score.save()
+            return redirect('/{}/editmatch/{}'.format(lid, mid))
+    else:
+        form_score = EditScoreForm()
+    return render(request, 'main/add_score.html', {"form_score" : form_score})
 
 def count_points(lid):
     for team in League.objects.get(league_id=lid).team_set.all():

@@ -1,0 +1,17 @@
+{% extends 'main/base.html' %}
+{% load crispy_forms_filters %}
+{% block title %}
+    Add scores
+{% endblock %}
+{% block content %}
+    <div class="container">
+    <form method="POST">
+      <fieldset>
+        <legend>Add Score</legend>
+        {% csrf_token %}
+        {{ form_score|crispy }}
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </fieldset>
+    </form>
+</div>
+{% endblock %}

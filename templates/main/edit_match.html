@@ -9,8 +9,9 @@
       <fieldset>
         <legend>Edit match</legend>
         {% csrf_token %}
-        {{ form|crispy }}
-        <button type="submit" class="btn btn-primary">Submit</button>
+        {{ form_match|crispy }}
+          <a href="/{{ l.league_id }}/editmatch/{{ m.match_id }}/as", class="btn btn-primary">Add Scores</a>
+          <button type="submit" class="btn btn-primary">Submit</button>
       </fieldset>
     </form>
 </div>

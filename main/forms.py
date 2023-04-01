@@ -1,7 +1,7 @@
 import self as self
 from django import forms
 from django.contrib.auth.models import User
-from .models import League, Team, Match, Player
+from .models import League, Team, Match, Player, Scores
 
 class CreateLeagueForm(forms.ModelForm):
     class Meta:
@@ -29,3 +29,8 @@ class EditLeagueForm(forms.ModelForm):
     class Meta:
         model = League
         fields = ('name', 'promoted_teams', 'relegated_teams')
+
+class EditScoreForm(forms.ModelForm):
+    class Meta:
+        model = Scores
+        fields = ('player_id', 'team_id')

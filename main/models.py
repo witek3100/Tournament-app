@@ -1,5 +1,7 @@
+import self
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.validators import MinValueValidator
 
 class League(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="league", null=True)
@@ -26,11 +28,18 @@ class Player(models.Model):
     first_name = models.CharField(max_length=30)
     second_name = models.CharField(max_length=30)
     position = models.CharField(max_length=20)
-
+    goals = models.IntegerField(null=False, default=0)
+    asists = models.IntegerField(null=False, default=0)
 class Match(models.Model):
     match_id = models.IntegerField(primary_key=True)
     match_day = models.IntegerField()
     home_team_id = models.ForeignKey(Team, on_delete=models.CASCADE, related_name="hometeam")
     away_team_id = models.ForeignKey(Team, on_delete=models.CASCADE, related_name="awayteam")
-    home_team_result = models.IntegerField(null=True)
-    away_team_result = models.IntegerField(null=True)
+    home_team_result = models.IntegerField(null=True, validators=[MinValueValidator(0)])
+    away_team_result = models.IntegerField(null=True, validators=[MinValueValidator(0)])
+
+class Scores(models.Model):
+    score_id = models.IntegerField(primary_key=True)
+    match_id = models.ForeignKey(Match, on_delete=models.CASCADE)
+    team_id = models.ForeignKey(Team, on_delete=models.CASCADE, related_name="teamid")
+    player_id = models.ForeignKey(Player, on_delete=models.CASCADE, related_name="playerid")
