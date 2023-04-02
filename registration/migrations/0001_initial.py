@@ -26,7 +26,7 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=30)),
                 ('shorthand', models.CharField(max_length=3)),
                 ('points', models.IntegerField(default=0)),
-                ('league_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='users.league')),
+                ('league_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='registration.league')),
             ],
         ),
         migrations.CreateModel(
@@ -36,7 +36,7 @@ class Migration(migrations.Migration):
                 ('first_name', models.CharField(max_length=30)),
                 ('second_name', models.CharField(max_length=30)),
                 ('position', models.CharField(max_length=20)),
-                ('team_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='users.team')),
+                ('team_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='registration.team')),
             ],
         ),
     ]

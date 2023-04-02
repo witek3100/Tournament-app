@@ -179,3 +179,4 @@ def edit_league(request, lid):
     else:
         form = EditLeagueForm()
     return render(request, 'main/edit_league.html', {"form" : form})
+
