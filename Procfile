@@ -1,2 +1,2 @@
 release: python manage.py migrate
-web: gunicorn ddah.wsgi --log-file=-
+web: gunicorn tournament--manager.wsgi --log-file=-
