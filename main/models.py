@@ -5,13 +5,13 @@ from django.core.validators import MinValueValidator
 
 class League(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="league", null=True)
-    league_id = models.IntegerField(primary_key=True)
+    league_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=30)
     promoted_teams = models.IntegerField(default=1)
     relegated_teams = models.IntegerField(default=1)
 
 class Team(models.Model):
-    team_id = models.IntegerField(primary_key=True)
+    team_id = models.AutoField(primary_key=True)
     league_id = models.ForeignKey(League, on_delete=models.CASCADE)
     name = models.CharField(max_length=30)
     shorthand = models.CharField(max_length=3)
@@ -23,7 +23,7 @@ class Team(models.Model):
     lost = models.IntegerField(null=False, default=0)
 
 class Player(models.Model):
-    player_id = models.IntegerField(primary_key=True)
+    player_id = models.AutoField(primary_key=True)
     team_id = models.ForeignKey(Team, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=30)
     second_name = models.CharField(max_length=30)
@@ -31,7 +31,7 @@ class Player(models.Model):
     goals = models.IntegerField(null=False, default=0)
     asists = models.IntegerField(null=False, default=0)
 class Match(models.Model):
-    match_id = models.IntegerField(primary_key=True)
+    match_id = models.AutoField(primary_key=True)
     match_day = models.IntegerField()
     home_team_id = models.ForeignKey(Team, on_delete=models.CASCADE, related_name="hometeam")
     away_team_id = models.ForeignKey(Team, on_delete=models.CASCADE, related_name="awayteam")
@@ -39,7 +39,7 @@ class Match(models.Model):
     away_team_result = models.IntegerField(null=True, validators=[MinValueValidator(0)])
 
 class Scores(models.Model):
-    score_id = models.IntegerField(primary_key=True)
+    score_id = models.AutoField(primary_key=True)
     match_id = models.ForeignKey(Match, on_delete=models.CASCADE)
     team_id = models.ForeignKey(Team, on_delete=models.CASCADE, related_name="teamid")
     player_id = models.ForeignKey(Player, on_delete=models.CASCADE, related_name="playerid")
